@@ -1,0 +1,29 @@
+[info] Packaging /Users/angelo/Labs/Scala/moliere/target/scala-2.10/moliere_2.10-0.0.1-sources.jar ...
+[debug] Input file mappings:
+[debug] 	dds/DataReader.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DataReader.scala
+[debug] 	dds/Event.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Event.scala
+[debug] 	dds/prelude.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/prelude.scala
+[debug] 	dds/config.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/config.scala
+[debug] 	dds/Writer.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Writer.scala
+[debug] 	dds/Status.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Status.scala
+[debug] 	dds/Policy.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Policy.scala
+[debug] 	dds/Subscriber.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Subscriber.scala
+[debug] 	dds/core/Core.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/core/Core.scala
+[debug] 	dds/qos.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/qos.scala
+[debug] 	dds/Publisher.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Publisher.scala
+[debug] 	dds/DomainParticipant.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DomainParticipant.scala
+[debug] 	dds/Topic.scala
+[debug] 	  /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Topic.scala
+[info] Done packaging.

@@ -1,0 +1,27 @@
+[info] Generating Scala API documentation for main sources to /Users/angelo/Labs/Scala/moliere/target/scala-2.10/api...
+[debug] Calling Scaladoc with arguments:
+[debug] 	-deprecation
+[debug] 	-unchecked
+[debug] 	-optimise
+[debug] 	-feature
+[debug] 	-language:postfixOps
+[debug] 	-d
+[debug] 	/Users/angelo/Labs/Scala/moliere/target/scala-2.10/api
+[debug] 	-bootclasspath
+[debug] 	/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/JObjC.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/classes:/Users/angelo/.sbt/boot/scala-2.10.1/lib/scala-library.jar
+[debug] 	-classpath
+[debug] 	/Users/angelo/.ivy2/cache/org.opensplice.mobile/mobile-dds/jars/mobile-dds-1.0.1-SNAPSHOT.jar:/Users/angelo/.ivy2/cache/org.opensplice.mobile/mobile-dds-core/jars/mobile-dds-core-1.0.1-SNAPSHOT.jar:/Users/angelo/.ivy2/cache/org.opensplice.mobile/mobile-ddsi/jars/mobile-ddsi-1.0.1-SNAPSHOT.jar:/Users/angelo/.ivy2/cache/net.sf.trove4j/trove4j/jars/trove4j-3.0.2.jar:/Users/angelo/.ivy2/cache/io.netty/netty/bundles/netty-3.6.3.Final.jar:/Users/angelo/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.1.jar:/Users/angelo/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.6.2.jar
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DataReader.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DomainParticipant.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Event.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Policy.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Publisher.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Status.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Subscriber.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Topic.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/Writer.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/config.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/core/Core.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/prelude.scala
+[debug] 	/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/qos.scala
+[info] Scala API documentation generation successful.

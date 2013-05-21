@@ -1,0 +1,35 @@
+[debug] 
+[debug] Initial source changes: 
+[debug] 	removed:Set()
+[debug] 	added: Set()
+[debug] 	modified: Set(/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DomainParticipant.scala)
+[debug] Removed products: Set()
+[debug] Modified external sources: Set()
+[debug] Modified binary dependencies: Set()
+[debug] Initial directly invalidated sources: Set(/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DomainParticipant.scala)
+[debug] 
+[debug] Sources indirectly invalidated by:
+[debug] 	product: Set()
+[debug] 	binary dep: Set()
+[debug] 	external source: Set()
+[debug] Initially invalidated: Set(/Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DomainParticipant.scala)
+[info] Compiling 1 Scala source to /Users/angelo/Labs/Scala/moliere/target/scala-2.10/classes...
+[debug] Running cached compiler 6a173ae, interfacing (CompilerInterface) with Scala compiler version 2.10.1
+[debug] Calling Scala compiler with arguments  (CompilerInterface):
+[debug] 	-deprecation
+[debug] 	-unchecked
+[debug] 	-optimise
+[debug] 	-feature
+[debug] 	-language:postfixOps
+[debug] 	-d
+[debug] 	/Users/angelo/Labs/Scala/moliere/target/scala-2.10/classes
+[debug] 	-bootclasspath
+[debug] 	/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/JObjC.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/classes:/Users/angelo/.sbt/boot/scala-2.10.1/lib/scala-library.jar
+[debug] 	-classpath
+[debug] 	/Users/angelo/Labs/Scala/moliere/target/scala-2.10/classes:/Users/angelo/.ivy2/cache/org.opensplice.mobile/mobile-dds/jars/mobile-dds-1.0.1-SNAPSHOT.jar:/Users/angelo/.ivy2/cache/org.opensplice.mobile/mobile-dds-core/jars/mobile-dds-core-1.0.1-SNAPSHOT.jar:/Users/angelo/.ivy2/cache/org.opensplice.mobile/mobile-ddsi/jars/mobile-ddsi-1.0.1-SNAPSHOT.jar:/Users/angelo/.ivy2/cache/net.sf.trove4j/trove4j/jars/trove4j-3.0.2.jar:/Users/angelo/.ivy2/cache/io.netty/netty/bundles/netty-3.6.3.Final.jar:/Users/angelo/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.1.jar:/Users/angelo/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.6.2.jar
+[error] /Users/angelo/Labs/Scala/moliere/src/main/scala/dds/DomainParticipant.scala:8: not found: value env
+[error]   def apply(domainId: Int)(implicit env: ServiceEnvironment, qos: DomainParticipantQos = env.getSPI.getParticipantFactory.getDefaultParticipantQos) = {
+[error]                                                                                          ^
+[error] one error found
+[debug] Compilation failed (CompilerInterface)
+[error] (compile:compile) Compilation failed
