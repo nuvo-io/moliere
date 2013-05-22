@@ -10,7 +10,7 @@ scalaVersion 	:= "2.10.1"
 
 seq(githubRepoSettings: _*)
 
-localRepo := Path.userHome / "Veda" /  "github" / "repo"
+localRepo := Path.userHome /  "github" / "repo"
 
 githubRepo := "git@github.com:nuvo-io/mvn-repo.git"
 
