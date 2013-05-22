@@ -1,12 +1,19 @@
 name		:= "moliere"
 
-version		:= "0.0.1"
+version		:= "0.0.1-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
 homepage :=  Some(new java.net.URL("http://nuvo.io"))
 
 scalaVersion 	:= "2.10.1"
+
+seq(githubRepoSettings: _*)
+
+localRepo := Path.userHome / "Veda" /  "github" / "repo"
+
+githubRepo := "git@github.com:nuvo-io/mvn-repo.git"
+
 
 // This is used to fetch the jar for the DDS implementation (such as OpenSplice Mobile)
 resolvers += "Local Maven Repo" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
