@@ -26,4 +26,17 @@ package object prelude {
 
     def onSampleLost(e: SampleLostEvent[T]) {}
   }
+
+  implicit class RichDataReader[T](dr: org.omg.dds.sub.DataReader[T]) {
+    def listen(fun: PartialFunction[Any, Unit]): Unit = {
+      dr.setListener(fun)
+    }
+    def deaf() {
+      dr.setListener(null)
+    }
+  }
+
+  implicit class Command(fun:  () => Unit) extends Runnable {
+    def run() = fun()
+  }
 }
