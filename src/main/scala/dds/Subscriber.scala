@@ -7,7 +7,7 @@ object Subscriber {
 
   def apply(dp: DomainParticipant, qos: SubscriberQos) = dp.createSubscriber(qos)
 
-  def apply(implicit dp: DomainParticipant) = dp.createSubscriber()
+  def apply()(implicit dp: DomainParticipant) = dp.createSubscriber()
 
   def apply(qos: SubscriberQos)(implicit dp: DomainParticipant) = dp.createSubscriber(qos)
 

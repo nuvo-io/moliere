@@ -2,6 +2,7 @@ package dds
 
 import org.omg.dds.core.policy.PolicyFactory
 import scala.collection.JavaConversions._
+import java.util.concurrent.TimeUnit
 
 object Partition {
   def apply(name: String)(implicit pf: PolicyFactory) = pf.Partition().withName(name)
@@ -22,5 +23,18 @@ object Durability {
 
 object History {
   def KeepLast(depth: Int)(implicit pf: PolicyFactory) = pf.History().withKeepLast(depth)
-  def KeepAll(depth: Int)(implicit pf: PolicyFactory) = pf.History().withKeepAll()
+  def KeepAll()(implicit pf: PolicyFactory) = pf.History().withKeepAll()
+}
+
+object TimeBasedFilter {
+  def apply(duration: Int)(implicit pf: PolicyFactory) =
+    pf.TimeBasedFilter().withMinimumSeparation(duration, TimeUnit.MILLISECONDS)
+
+  def apply(duration: Int, unit: TimeUnit)(implicit pf: PolicyFactory) =
+      pf.TimeBasedFilter().withMinimumSeparation(duration, unit)
+}
+
+object ContentFilter {
+  def apply(script: String)(implicit pf: PolicyFactory) =
+    pf.ContentFilter().withFilter(new org.opensplice.mobile.utils.JavaScriptFilter(script))
 }
