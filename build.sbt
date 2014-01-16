@@ -1,6 +1,6 @@
 name		:= "moliere"
 
-version		:= "0.1.1-SNAPSHOT"
+version		:= "0.1.3-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
@@ -14,6 +14,8 @@ resolvers += "Local Maven Repo" at "file://"+Path.userHome.absolutePath+"/.m2/re
 libraryDependencies += "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test"
 
 libraryDependencies += "org.opensplice.mobile" % "ospl-mobile" % "1.1.0"
+
+libraryDependencies += "com.netflix.rxjava" % "rxjava-scala" % "0.16.0"
 
 autoCompilerPlugins := true
 
