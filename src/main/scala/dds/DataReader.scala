@@ -26,6 +26,8 @@ object DataReader {
   def apply[T](t: Topic[T], qos: DataReaderQos)(implicit sub: org.omg.dds.sub.Subscriber) = {
     val dr = sub.createDataReader(t, qos).asInstanceOf[DataReader[T]]
     dr.setListener(new prelude.MCastReaderListener[T](), dds.core.Status.all()(sub.getEnvironment))
+    dr
+    
   }
 }
 
