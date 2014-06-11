@@ -36,7 +36,7 @@ object TimeBasedFilter {
 
 object ContentFilter {
   def apply(script: String)(implicit pf: PolicyFactory) = {
-    val f = new org.opensplice.mobile.utils.JavaScriptFilter(script)
+    val f = new org.opensplice.osplj.utils.JavaScriptFilter(script)
     pf.ContentFilter().withFilter(f.asInstanceOf[org.omg.dds.sub.DataReader.Filter[_]])
   }
 }

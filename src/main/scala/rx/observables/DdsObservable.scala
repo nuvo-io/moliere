@@ -22,6 +22,7 @@ object DdsObservable {
           .`with`(SampleState.READ)
           .withAnyViewState()
         dr.select().dataState(state).read().foreach(s => {
+          println(this.hashCode() + ", ")
           o.onNext(s.getData)
         })
       }

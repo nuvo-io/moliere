@@ -5,7 +5,7 @@ import org.omg.dds.domain.DomainParticipantFactory
 
 package object config {
 
-  val provider = "org.opensplice.mobile.core.ServiceEnvironmentImpl"
+  val provider = "org.opensplice.osplj.core.ServiceEnvironmentImpl"
   def setupEnv() = {
     System.setProperty(ServiceEnvironment.IMPLEMENTATION_CLASS_NAME_PROPERTY,
       provider);
