@@ -1,20 +1,17 @@
 name		:= "moliere"
 
-version		:= "0.2.1-SNAPSHOT"
+version		:= "0.3.0-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
 homepage :=  Some(new java.net.URL("http://nuvo.io"))
 
-scalaVersion 	:= "2.10.3"
+scalaVersion 	:= "2.11.1"
 
 // This is used to fetch the jar for the DDS implementation (such as OpenSplice Mobile)
-resolvers += "Local Maven Repo" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
+resolvers += "Vortex Snapshot Repo" at "https://dl.dropboxusercontent.com/u/19238968/devel/mvn-repo/snapshots"
 
-libraryDependencies += "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test"
-
-// libraryDependencies += "org.opensplice.mobile" % "ospl-mobile" % "1.1.0"
-libraryDependencies += "org.opensplice.osplj" % "osplj" % "2.0.0-SNAPSHOT"
+libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.0.0-SNAPSHOT"
 
 libraryDependencies += "com.netflix.rxjava" % "rxjava-scala" % "0.16.0"
 
