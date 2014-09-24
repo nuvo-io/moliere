@@ -18,7 +18,7 @@ object Durability {
   def Volatile(implicit pf: PolicyFactory) = pf.Durability().withVolatile()
   def TransientLocal(implicit pf: PolicyFactory) = pf.Durability().withTransientLocal()
   def Transient(implicit pf: PolicyFactory) = pf.Durability().withTransient()
-  def Persistent(implicit pf: PolicyFactory) = pf.Durability().withPersitent()
+  def Persistent(implicit pf: PolicyFactory) = pf.Durability().withPersistent()
 }
 
 object History {
