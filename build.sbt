@@ -1,6 +1,6 @@
 name		:= "moliere"
 
-version		:= "0.4.0-SNAPSHOT"
+version		:= "0.5.0-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
@@ -12,8 +12,6 @@ scalaVersion 	:= "2.10.4"
 resolvers += "Vortex Snapshot Repo" at "https://dl.dropboxusercontent.com/u/19238968/devel/mvn-repo/vortex"
 
 libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.1.0-SNAPSHOT"
-
-libraryDependencies += "com.netflix.rxjava" % "rxjava-scala" % "0.16.0"
 
 autoCompilerPlugins := true
 
@@ -28,7 +26,7 @@ scalacOptions += "-feature"
 scalacOptions += "-language:postfixOps"
 
 // This is used for publishing released into git-hub
-publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath + "/Labs/mvn-repo/snaptshots")))
+publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath + "/Labs/mvn-repo/snapshots")))
 
 
 
