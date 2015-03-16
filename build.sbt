@@ -1,6 +1,6 @@
 name		:= "moliere"
 
-version		:= "0.9.0-SNAPSHOT"
+version		:= "0.9.1-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
@@ -11,9 +11,9 @@ scalaVersion 	:= "2.11.5"
 // This is used to fetch the jar for the DDS implementation (such as OpenSplice Mobile)
 // resolvers += "Vortex Snapshot Repo" at Path.userHome.absolutePath +"/.m2/repository"
 
-resolvers += "Vortex Snapshot Repo" at "https://dl.dropboxusercontent.com/u/19238968/vortex/mvn-repo"
-
-libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.1.1rc3-SNAPSHOT"
+//resolvers += "Vortex Snapshot Repo" at "https://dl.dropboxusercontent.com/u/19238968/vortex/mvn-repo"
+//
+//libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.1.1rc3-SNAPSHOT"
 
 autoCompilerPlugins := true
 
