@@ -1,11 +1,23 @@
 package dds
 
+import org.omg.dds.sub.InstanceState
+
 import scala.language.implicitConversions
 import java.util.concurrent.atomic.AtomicReference
 
 package object prelude {
   import org.omg.dds.core.event._
   import org.omg.dds.sub.DataReader
+
+  def history[T](dr: org.omg.dds.sub.DataReader[T]) = dr.select().dataState(config.DefaultValues.liveSampleStatus).read()
+
+  implicit class RichDataWriter[T](val dw: org.omg.dds.pub.DataWriter[T]) {
+    def ! (x: T) = dw.write(x)
+
+    def ! (xs: List[T]) = xs.foreach(dw.write(_))
+
+    def write (xs: List[T]) = xs.foreach(dw.write(_))
+  }
 
   class MCastReaderListener[T] extends org.omg.dds.sub.DataReaderListener[T] {
     val listeners = new AtomicReference[Map[Int, org.omg.dds.sub.DataReaderListener[T]]](Map())

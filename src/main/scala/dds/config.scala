@@ -2,6 +2,7 @@ package dds
 
 import org.omg.dds.core.ServiceEnvironment
 import org.omg.dds.domain.DomainParticipantFactory
+import org.omg.dds.sub.InstanceState
 
 package object config {
 
@@ -25,5 +26,13 @@ package object config {
     implicit lazy val defaultPub = defaultDomainParticipant .createPublisher()
     implicit lazy val defaultSub = defaultDomainParticipant .createSubscriber()
     implicit lazy val defaultPolicyFactory = env.getSPI.getPolicyFactory()
+  }
+
+  object DefaultValues {
+    lazy val liveSampleStatus = {
+      val s = DefaultEntities.defaultSub.createDataState()
+      s.withAnySampleState().withAnyViewState().`with`(InstanceState.ALIVE)
+      s
+    }
   }
 }
