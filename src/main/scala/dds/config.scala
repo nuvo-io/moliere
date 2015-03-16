@@ -6,7 +6,30 @@ import org.omg.dds.sub.InstanceState
 
 package object config {
 
-  val provider = "com.prismtech.cafe.core.ServiceEnvironmentImpl"
+  val SERVICE_ENVIRONMENT = "dds.service.environment"
+  val DDS_RUNTIME = "dds.runtime"
+  val CAFE_SERVICE_ENV = "com.prismtech.cafe.core.ServiceEnvironmentImpl"
+  val OSPL_SERVICE_ENV = "org.opensplice.dds.core.OsplServiceEnvironment"
+  val CAFE = "cafe"
+  val OSPL = "ospl"
+
+  val dds = {
+    val ddsRuntime = System.getProperty(DDS_RUNTIME)
+    if (ddsRuntime == null) CAFE else ddsRuntime
+  }
+
+  val serviceEnvironment: String = {
+    val svcEnv = System.getProperty(SERVICE_ENVIRONMENT)
+    if (svcEnv == null) {
+      if (dds ==  CAFE) CAFE_SERVICE_ENV
+      else if (dds == OSPL) OSPL_SERVICE_ENV
+      else throw new RuntimeException("You need to select the DDS runtime via dds.runtime=(cafe|ospl) " +
+        "or provide the service environment via the dds.service.environment property")
+    } else svcEnv
+  }
+
+  val provider = serviceEnvironment
+
   def setupEnv() = {
     System.setProperty(ServiceEnvironment.IMPLEMENTATION_CLASS_NAME_PROPERTY,
       provider);

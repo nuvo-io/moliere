@@ -36,7 +36,24 @@ object TimeBasedFilter {
 
 object ContentFilter {
   def apply(script: String)(implicit pf: PolicyFactory) = {
-    val f = new com.prismtech.cafe.utils.JavaScriptFilter(script)
-    pf.ContentFilter().withFilter(f.asInstanceOf[org.omg.dds.sub.DataReader.Filter[_]])
+    import scala.collection.JavaConversions._
+    // This code has a dependency to cafe, which is not nice. We should refactor this into
+    // another class that deals with DDS runtime specificity.
+    if (config.dds == config.CAFE) {
+      val cls = Class.forName("com.prismtech.cafe.utils.JavaScriptFilter")
+      val ctors = cls.getConstructors()
+      val policy =
+        for (
+          ctor <- ctors.find(ctr => ctr.getParameterCount == 1 && ctr.getParameterTypes()(0).getCanonicalName == "java.lang.String");
+          f <- { try {
+            Some(ctor.newInstance(script))
+          } catch {
+            case e: RuntimeException => None
+          }}) yield pf.ContentFilter().withFilter(f.asInstanceOf[org.omg.dds.sub.DataReader.Filter[_]])
+
+      policy.getOrElse {
+        throw new RuntimeException("Unable to create ContentFilter")
+      }
+    } else throw new RuntimeException("ContentFilter QoS is only supported for Caf")
   }
 }
