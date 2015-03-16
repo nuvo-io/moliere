@@ -34,9 +34,9 @@ object TimeBasedFilter {
     pf.TimeBasedFilter().withMinimumSeparation(duration, unit)
 }
 
-object ContentFilter {
-  def apply(script: String)(implicit pf: PolicyFactory) = {
-    val f = new com.prismtech.cafe.utils.JavaScriptFilter(script)
-    pf.ContentFilter().withFilter(f.asInstanceOf[org.omg.dds.sub.DataReader.Filter[_]])
-  }
-}
+//object ContentFilter {
+//  def apply(script: String)(implicit pf: PolicyFactory) = {
+//    val f = new com.prismtech.cafe.utils.JavaScriptFilter(script)
+//    pf.ContentFilter().withFilter(f.asInstanceOf[org.omg.dds.sub.DataReader.Filter[_]])
+//  }
+//}
