@@ -1,19 +1,20 @@
 name		:= "moliere"
 
-version		:= "0.9.1-SNAPSHOT"
+version		:= "0.9.2-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
 homepage :=  Some(new java.net.URL("http://nuvo.io"))
 
-scalaVersion 	:= "2.11.5"
+scalaVersion 	:= "2.11.6"
 
 // This is used to fetch the jar for the DDS implementation (such as OpenSplice Mobile)
 // resolvers += "Vortex Snapshot Repo" at Path.userHome.absolutePath +"/.m2/repository"
 
-//resolvers += "Vortex Snapshot Repo" at "https://dl.dropboxusercontent.com/u/19238968/vortex/mvn-repo"
+resolvers += "Vortex Snapshot Repo" at "https://dl.dropboxusercontent.com/u/19238968/vortex/mvn-repo"
 //
-//libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.1.1rc3-SNAPSHOT"
+
+libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.1.2-SNAPSHOT"
 
 autoCompilerPlugins := true
 

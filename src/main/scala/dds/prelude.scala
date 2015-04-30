@@ -104,7 +104,8 @@ package object prelude {
     }
 
     def onDataAvailable(e: DataAvailableEvent[T]) {
-      val evt = DataAvailable(e.getSource.asInstanceOf[DataReader[T]])
+      val dr = e.getSource.asInstanceOf[DataReader[T]]
+      val evt = DataAvailable(dr)
       if (fun.isDefinedAt(evt)) fun(evt)
     }
 
@@ -142,4 +143,11 @@ package object prelude {
   implicit class Command[T](fun:  () => T) extends Runnable {
     def run(): Unit = fun()
   }
+
+  implicit class RichInstanceState(is: org.omg.dds.sub.InstanceState) {
+    def isAlive = is.value == org.omg.dds.sub.InstanceState.ALIVE.value
+    def notAlive = is.value == org.omg.dds.sub.InstanceState.NOT_ALIVE_NO_WRITERS.value
+    def isDisposed = is.value == org.omg.dds.sub.InstanceState.NOT_ALIVE_DISPOSED.value
+  }
+
 }

@@ -31,7 +31,7 @@ package object config {
   val provider = serviceEnvironment
 
   def setupEnv() = {
-    System.setProperty(ServiceEnvironment.IMPLEMENTATION_CLASS_NAME_PROPERTY,
+      System.setProperty(ServiceEnvironment.IMPLEMENTATION_CLASS_NAME_PROPERTY,
       provider);
     ServiceEnvironment.createInstance(Thread.currentThread().getContextClassLoader)
 

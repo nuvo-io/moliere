@@ -1,7 +1,9 @@
 package dds.core
 
+import java.util
 import java.util.concurrent.TimeUnit
 import org.omg.dds.core.ServiceEnvironment
+import org.omg.dds.core.status._
 
 object Duration {
   def apply(d: Long, unit: TimeUnit)(implicit env: ServiceEnvironment) = env.getSPI.newDuration(d, unit)
@@ -20,6 +22,14 @@ object WaitSet {
 }
 
 object Status {
-  def all()(implicit env: ServiceEnvironment) = env.getSPI.allStatusKinds()
-  def none()(implicit env: ServiceEnvironment) = env.getSPI.noStatusKinds()
+
+  val all = List[Class[_ <: Status]](
+    classOf[DataAvailableStatus],
+    classOf[SubscriptionMatchedStatus],
+    classOf[LivelinessChangedStatus],
+    classOf[RequestedDeadlineMissedStatus],
+    classOf[OfferedDeadlineMissedStatus],
+    classOf[RequestedDeadlineMissedStatus]
+  )
+  val none = List[Class[_ <: Status]]()
 }
