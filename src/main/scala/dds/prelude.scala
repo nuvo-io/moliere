@@ -5,7 +5,7 @@ import org.omg.dds.sub.InstanceState
 import scala.language.implicitConversions
 import java.util.concurrent.atomic.AtomicReference
 
-package object prelude {
+package object  prelude {
   import org.omg.dds.core.event._
   import org.omg.dds.sub.DataReader
 
