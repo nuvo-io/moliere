@@ -72,7 +72,7 @@ package object prelude {
       History.KeepAll()
     )
 
-  class Event[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability)
+  case class Event[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability)
                           (implicit dp: org.omg.dds.domain.DomainParticipant,
                                     sub: org.omg.dds.sub.Subscriber,
                                     pub: org.omg.dds.pub.Publisher,
@@ -84,7 +84,7 @@ package object prelude {
     lazy val reader = DataReader[T](topic, EventReaderQos(durability))
   }
 
-  class SoftState[T: Manifest](name: String, history: Int = 1)
+  case class SoftState[T: Manifest](name: String, history: Int = 1)
                           (implicit dp: org.omg.dds.domain.DomainParticipant,
                            sub: org.omg.dds.sub.Subscriber,
                            pub: org.omg.dds.pub.Publisher,
@@ -95,7 +95,7 @@ package object prelude {
     lazy val reader = DataReader[T](topic, SoftStateReaderQos(history))
   }
 
-  class HardState[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability, history: Int = 1)
+  case class HardState[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability, history: Int = 1)
                               (implicit dp: org.omg.dds.domain.DomainParticipant,
                                sub: org.omg.dds.sub.Subscriber,
                                pub: org.omg.dds.pub.Publisher,
@@ -105,7 +105,15 @@ package object prelude {
     lazy val writer = DataWriter[T](topic, HardStateWriterQos(durability, history))
     lazy val reader = DataReader[T](topic, HardStateReaderQos(durability, history))
   }
-  // QoS
+
+  case class Scope(partition: String)(implicit dp: org.omg.dds.domain.DomainParticipant, pf: PolicyFactory) {
+    private val p = Partition(partition)
+    lazy private val pqos = PublisherQos().withPolicy(p)
+    lazy private val sqos = SubscriberQos().withPolicy(p)
+    lazy val pub = Publisher(pqos)
+    lazy val sub = Subscriber(sqos)
+  }
+
 
   def history[T](dr: org.omg.dds.sub.DataReader[T]) = dr.select().dataState(DataState.allData).read()
 
