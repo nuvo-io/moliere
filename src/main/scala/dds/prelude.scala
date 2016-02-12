@@ -1,15 +1,113 @@
 package dds
 
-import org.omg.dds.sub.InstanceState
+import org.omg.dds.core.policy.PolicyFactory
 
 import scala.language.implicitConversions
 import java.util.concurrent.atomic.AtomicReference
 
 package object  prelude {
   import org.omg.dds.core.event._
-  import org.omg.dds.sub.DataReader
 
-  def history[T](dr: org.omg.dds.sub.DataReader[T]) = dr.select().dataState(config.DefaultValues.liveSampleStatus).read()
+
+  def SoftStateReaderQos(history: Int = 1)(implicit pf: PolicyFactory, sub: org.omg.dds.sub.Subscriber) =
+    DataReaderQos().withPolicies(
+      Reliability.BestEffort,
+      Durability.Volatile,
+      History.KeepLast(history)
+    )
+
+  def SoftStateWriterQos(history: Int = 1)(implicit pf: PolicyFactory, pub: org.omg.dds.pub.Publisher) =
+    DataWriterQos().withPolicies(
+      Reliability.BestEffort,
+      Durability.Volatile,
+      History.KeepLast(history)
+    )
+
+  def SoftStateTopic(implicit dp: org.omg.dds.domain.DomainParticipant) = TopicQos()
+
+  def HardStateTopic(durability: org.omg.dds.core.policy.Durability,
+                     rlimits: org.omg.dds.core.policy.ResourceLimits)
+                    (implicit pf: PolicyFactory, dp: org.omg.dds.domain.DomainParticipant) = {
+    val ds = DurabilityService(History.KeepLast(1), rlimits)
+
+    var durableTopicQos = TopicQos().withPolicies(History.KeepLast(1), ds, durability)
+    var nonDurableTopicQos = TopicQos().withPolicies(History.KeepLast(1), durability)
+    durability.getKind match {
+      case org.omg.dds.core.policy.Durability.Kind.PERSISTENT => durableTopicQos
+      case org.omg.dds.core.policy.Durability.Kind.TRANSIENT => durableTopicQos
+      case _ => nonDurableTopicQos
+    }
+  }
+
+
+  def HardStateReaderQos(durability: org.omg.dds.core.policy.Durability, history: Int = 1)
+                        (implicit pf: PolicyFactory, sub: org.omg.dds.sub.Subscriber) =
+    DataReaderQos().withPolicies(
+      Reliability.BestEffort,
+      durability,
+      History.KeepLast(history)
+    )
+
+  def HardStateWriterQos(durability: org.omg.dds.core.policy.Durability, history: Int = 1)
+                        (implicit pf: PolicyFactory, pub: org.omg.dds.pub.Publisher) =
+    DataWriterQos().withPolicies(
+      Reliability.BestEffort,
+      durability,
+      History.KeepLast(history))
+
+
+  def EventReaderQos(durability: org.omg.dds.core.policy.Durability)
+                    (implicit pf: PolicyFactory, sub: org.omg.dds.sub.Subscriber) =
+    DataReaderQos().withPolicies(
+      Reliability.Reliable,
+      durability,
+      History.KeepAll()
+    )
+
+  def EventWriterQos(durability: org.omg.dds.core.policy.Durability)
+                    (implicit pf: PolicyFactory, pub: org.omg.dds.pub.Publisher) =
+    DataWriterQos().withPolicies(
+      Reliability.Reliable,
+      durability,
+      History.KeepAll()
+    )
+
+  class Event[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability)
+                          (implicit dp: org.omg.dds.domain.DomainParticipant,
+                                    sub: org.omg.dds.sub.Subscriber,
+                                    pub: org.omg.dds.pub.Publisher,
+                                    pf: PolicyFactory
+                          ) {
+
+    lazy val topic = Topic[T](name, HardStateTopic(durability, ResourceLimits(1, 1024, 1024*1024)))
+    lazy val writer = DataWriter[T](topic, EventWriterQos(durability))
+    lazy val reader = DataReader[T](topic, EventReaderQos(durability))
+  }
+
+  class SoftState[T: Manifest](name: String, history: Int = 1)
+                          (implicit dp: org.omg.dds.domain.DomainParticipant,
+                           sub: org.omg.dds.sub.Subscriber,
+                           pub: org.omg.dds.pub.Publisher,
+                           pf: PolicyFactory) {
+
+    lazy val topic = Topic[T](name)
+    lazy val writer = DataWriter[T](topic, SoftStateWriterQos(history))
+    lazy val reader = DataReader[T](topic, SoftStateReaderQos(history))
+  }
+
+  class HardState[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability, history: Int = 1)
+                              (implicit dp: org.omg.dds.domain.DomainParticipant,
+                               sub: org.omg.dds.sub.Subscriber,
+                               pub: org.omg.dds.pub.Publisher,
+                               pf: PolicyFactory) {
+
+    lazy val topic = Topic[T](name, HardStateTopic(durability, ResourceLimits(1, 1024, 1024*1024)))
+    lazy val writer = DataWriter[T](topic, HardStateWriterQos(durability, history))
+    lazy val reader = DataReader[T](topic, HardStateReaderQos(durability, history))
+  }
+  // QoS
+
+  def history[T](dr: org.omg.dds.sub.DataReader[T]) = dr.select().dataState(DataState.allData).read()
 
   implicit class RichDataWriter[T](val dw: org.omg.dds.pub.DataWriter[T]) {
     def ! (x: T) = dw.write(x)
@@ -104,7 +202,7 @@ package object  prelude {
     }
 
     def onDataAvailable(e: DataAvailableEvent[T]) {
-      val dr = e.getSource.asInstanceOf[DataReader[T]]
+      val dr = e.getSource.asInstanceOf[org.omg.dds.sub.DataReader[T]]
       val evt = DataAvailable(dr)
       if (fun.isDefinedAt(evt)) fun(evt)
     }

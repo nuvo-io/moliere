@@ -51,11 +51,5 @@ package object config {
     implicit lazy val defaultPolicyFactory = env.getSPI.getPolicyFactory()
   }
 
-  object DefaultValues {
-    lazy val liveSampleStatus = {
-      val s = DefaultEntities.defaultSub.createDataState()
-      s.withAnySampleState().withAnyViewState().`with`(InstanceState.ALIVE)
-      s
-    }
-  }
+
 }

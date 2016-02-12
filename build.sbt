@@ -1,6 +1,6 @@
 name		:= "moliere"
 
-version		:= "0.11.1-SNAPSHOT"
+version		:= "0.11.2-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
@@ -25,7 +25,7 @@ scalacOptions += "-feature"
 scalacOptions += "-language:postfixOps"
 
 // This is used for publishing released into git-hub
-publishTo := Some(Resolver.file("file",  new File( "/Users/veda/hacking/zlab/mvn-repo/snapshots" )) )
+publishTo := Some(Resolver.file("file",  new File( "/Users/kydos/xlabs/nuvo/mvn-repo/snapshots" )) )
 
 
 

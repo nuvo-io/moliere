@@ -10,6 +10,40 @@ object DataState {
     .withAnySampleState()
     .withAnyViewState()
 
-  def allData() = DataState().withAnySampleState()
+  val allData =
+    DataState()
+      .withAnySampleState()
+      .withAnyViewState()
+      .`with`(org.omg.dds.sub.InstanceState.ALIVE)
+
+  val newData =
+    DataState()
+      .withAnyViewState()
+      .`with`(org.omg.dds.sub.InstanceState.ALIVE)
+      .`with`(org.omg.dds.sub.SampleState.NOT_READ)
+
+  val oldData =
+    DataState()
+      .withAnyViewState()
+      .`with`(org.omg.dds.sub.InstanceState.ALIVE)
+      .`with`(org.omg.dds.sub.SampleState.READ)
+
+  val newInstances =
+    DataState()
+      .`with`(org.omg.dds.sub.ViewState.NEW)
+        .withAnySampleState()
+          .withAnyInstanceState()
+
+  val notAliveInstances =
+    DataState()
+      .`with`(org.omg.dds.sub.InstanceState.NOT_ALIVE_NO_WRITERS)
+      .withAnySampleState()
+      .withAnyViewState()
+
+  val disposedInstances =
+    DataState()
+      .`with`(org.omg.dds.sub.InstanceState.NOT_ALIVE_DISPOSED)
+      .withAnySampleState()
+      .withAnyViewState()
 
 }
