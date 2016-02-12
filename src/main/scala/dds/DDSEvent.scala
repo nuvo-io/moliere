@@ -2,9 +2,9 @@ package dds
 
 import org.omg.dds.core.event._
 
-abstract class Event
+abstract class DDSEvent
 
-abstract class ReaderEvent[T] extends Event
+abstract class ReaderEvent[T] extends DDSEvent
 
 case class DataAvailable[T](reader: org.omg.dds.sub.DataReader[T]) extends ReaderEvent[T]
 
