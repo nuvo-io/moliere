@@ -1,6 +1,6 @@
 name		:= "moliere"
 
-version		:= "0.11.5-SNAPSHOT"
+version		:= "0.11.6-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 

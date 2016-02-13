@@ -43,7 +43,7 @@ package object prelude {
   def HardStateReaderQos(durability: org.omg.dds.core.policy.Durability, history: Int = 1)
                         (implicit pf: PolicyFactory, sub: org.omg.dds.sub.Subscriber) =
     DataReaderQos().withPolicies(
-      Reliability.BestEffort,
+      Reliability.Reliable,
       durability,
       History.KeepLast(history)
     )
@@ -51,7 +51,7 @@ package object prelude {
   def HardStateWriterQos(durability: org.omg.dds.core.policy.Durability, history: Int = 1)
                         (implicit pf: PolicyFactory, pub: org.omg.dds.pub.Publisher) =
     DataWriterQos().withPolicies(
-      Reliability.BestEffort,
+      Reliability.Reliable,
       durability,
       History.KeepLast(history))
 
