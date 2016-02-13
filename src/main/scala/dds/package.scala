@@ -112,6 +112,7 @@ package object prelude {
     lazy private val sqos = SubscriberQos().withPolicy(p)
     lazy val pub = Publisher(pqos)
     lazy val sub = Subscriber(sqos)
+    def apply() = (pub, sub)
   }
 
 
