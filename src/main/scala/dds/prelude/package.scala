@@ -1,9 +1,12 @@
 package dds
 
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicReference
+
 import org.omg.dds.core.policy.PolicyFactory
 
+import scala.collection.JavaConversions._
 import scala.language.implicitConversions
-import java.util.concurrent.atomic.AtomicReference
 
 package object prelude {
   import org.omg.dds.core.event._
@@ -45,7 +48,8 @@ package object prelude {
     DataReaderQos().withPolicies(
       Reliability.Reliable,
       durability,
-      History.KeepLast(history)
+      History.KeepLast(history),
+      ReaderDataLifecycle.AutoPurgeDisposedSamples(0, TimeUnit.SECONDS)
     )
 
   def HardStateWriterQos(durability: org.omg.dds.core.policy.Durability, history: Int = 1)
@@ -53,7 +57,9 @@ package object prelude {
     DataWriterQos().withPolicies(
       Reliability.Reliable,
       durability,
-      History.KeepLast(history))
+      History.KeepLast(history),
+      WriterDataLifecycle.ManualDisposeInstance
+    )
 
 
   def EventReaderQos(durability: org.omg.dds.core.policy.Durability)
@@ -61,7 +67,8 @@ package object prelude {
     DataReaderQos().withPolicies(
       Reliability.Reliable,
       durability,
-      History.KeepAll()
+      History.KeepAll(),
+      ReaderDataLifecycle.AutoPurgeDisposedSamples(0, TimeUnit.SECONDS)
     )
 
   def EventWriterQos(durability: org.omg.dds.core.policy.Durability)
@@ -69,7 +76,8 @@ package object prelude {
     DataWriterQos().withPolicies(
       Reliability.Reliable,
       durability,
-      History.KeepAll()
+      History.KeepAll(),
+      WriterDataLifecycle.ManualDisposeInstance
     )
 
   case class Event[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability)
@@ -82,6 +90,13 @@ package object prelude {
     lazy val topic = Topic[T](name, HardStateTopic(durability, ResourceLimits(1, 1024, 1024*1024)))
     lazy val writer = DataWriter[T](topic, EventWriterQos(durability))
     lazy val reader = DataReader[T](topic, EventReaderQos(durability))
+
+    def take():List[T] = this.reader.select().dataState(DataState.allData).take().map(_.getData).toList
+
+    def write(t: T) = this.writer.write(t)
+
+    def write(ts: List[T]) = ts.foreach(this.writer.write)
+
   }
 
   case class SoftState[T: Manifest](name: String, history: Int = 1)
@@ -93,6 +108,13 @@ package object prelude {
     lazy val topic = Topic[T](name)
     lazy val writer = DataWriter[T](topic, SoftStateWriterQos(history))
     lazy val reader = DataReader[T](topic, SoftStateReaderQos(history))
+
+    def read(): List[T] = this.reader.select().dataState(DataState.allData).read().map(_.getData).toList
+
+    def write(t: T): Unit = this.writer.write(t)
+
+    def write(ts: List[T]) = ts.foreach(this.writer.write)
+
   }
 
   case class HardState[T: Manifest](name: String, durability: org.omg.dds.core.policy.Durability, history: Int = 1)
@@ -104,6 +126,12 @@ package object prelude {
     lazy val topic = Topic[T](name, HardStateTopic(durability, ResourceLimits(1, 1024, 1024*1024)))
     lazy val writer = DataWriter[T](topic, HardStateWriterQos(durability, history))
     lazy val reader = DataReader[T](topic, HardStateReaderQos(durability, history))
+
+    def read(): List[T] = this.reader.select().dataState(DataState.allData).read().map(_.getData).toList
+
+    def write(t: T): Unit = this.writer.write(t)
+
+    def write(ts: List[T]): Unit = ts.foreach(this.writer.write)
   }
 
   case class Scope(partition: String)(implicit dp: org.omg.dds.domain.DomainParticipant, pf: PolicyFactory) {
