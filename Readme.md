@@ -1,4 +1,7 @@
 # Moliere the Scala API for DDS
+
+[![Build Status](https://travis-ci.org/nuvo-io/moliere.svg?branch=master)](https://travis-ci.org/nuvo-io/moliere)
+
 Moliere is a highly idiomatic Scala API for DDS. It leverage Scala's support for dependency injection (namely implicits) to simplify the creation of DDS entities. 
 
 Additionally, it implements some common abstractions such as soft-state, hard-state and events so to further simplify the use of DDS.
