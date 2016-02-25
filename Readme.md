@@ -8,4 +8,4 @@ Additionally, it implements some common abstractions such as soft-state, hard-st
 
 ## Code Examples
 
-To learn how to use **Moliere**'s Scala API refer to the [moliere-demo](https://github.com/nuvo-io/moliere-demo) project which contains plenty  of examples.
+To learn how to use **Moliere**'s Scala API refer to the [moliere-demo](https://github.com/nuvo-io/moliere-demo) project which contains plenty  of examples. 
