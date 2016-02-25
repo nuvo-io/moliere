@@ -1,0 +1,6 @@
+language: scala
+sudo: false
+before_install: umask 0022
+scala:
+	- 2.11.7
+	
