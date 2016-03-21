@@ -113,7 +113,7 @@ object ContentFilter {
       val ctors = cls.getConstructors()
       val policy =
         for (
-          ctor <- ctors.find(ctr => ctr.getParameterCount == 1 && ctr.getParameterTypes()(0).getCanonicalName == "java.lang.String");
+          ctor <- ctors.find(ctr => ctr.getParameterTypes.length == 1 && ctr.getParameterTypes()(0).getCanonicalName == "java.lang.String");
           f <- { try {
             Some(ctor.newInstance(script))
           } catch {
