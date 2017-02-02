@@ -4,7 +4,7 @@ package dds
 object DataWriter {
   import org.omg.dds.topic.Topic
   import org.omg.dds.pub.DataWriterQos
-  import scala.collection.JavaConversions._
+  import scala.collection.JavaConverters._
 
   def create[T](pub: org.omg.dds.pub.Publisher, t: Topic[T]) = pub.createDataWriter[T](t)
 
@@ -14,7 +14,7 @@ object DataWriter {
 
 
   def apply[T](pub: org.omg.dds.pub.Publisher, t: Topic[T], qos: DataWriterQos) =
-    pub.createDataWriter[T](t, qos, null, List())
+    pub.createDataWriter[T](t, qos, null, dds.core.Status.none.asJava)
 
   /*
   def apply[T](t: Topic[T])(implicit pub: org.omg.dds.pub.Publisher, m: Manifest[T]) = {
@@ -25,5 +25,5 @@ object DataWriter {
   def apply[T](t: Topic[T])(implicit pub: org.omg.dds.pub.Publisher) = pub.createDataWriter[T](t)
 
   def apply[T](t: Topic[T], qos: DataWriterQos)(implicit pub: org.omg.dds.pub.Publisher) =
-    pub.createDataWriter[T](t, qos, null, List())
+    pub.createDataWriter[T](t, qos, null, dds.core.Status.none.asJava)
 }

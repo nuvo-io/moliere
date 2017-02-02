@@ -2,13 +2,13 @@ package dds
 
 import dds.core.Duration
 import org.omg.dds.core.policy.PolicyFactory
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import java.util.concurrent.TimeUnit
-
 
 
 object WriterDataLifecycle {
   def AutoDisposeInstance(implicit pf: PolicyFactory) = pf.WriterDataLifecycle().withAutDisposeUnregisteredInstances(true)
+
   def ManualDisposeInstance(implicit pf: PolicyFactory) = pf.WriterDataLifecycle().withAutDisposeUnregisteredInstances(false)
 }
 
@@ -40,14 +40,14 @@ object ResourceLimits {
 
 object DurabilityService {
   def apply(history: org.omg.dds.core.policy.History,
-           rlimits: org.omg.dds.core.policy.ResourceLimits)(implicit pf: PolicyFactory): org.omg.dds.core.policy.DurabilityService =
+            rlimits: org.omg.dds.core.policy.ResourceLimits)(implicit pf: PolicyFactory): org.omg.dds.core.policy.DurabilityService =
     DurabilityService.apply(history, rlimits, 0, TimeUnit.SECONDS)(pf)
 
 
   def apply(history: org.omg.dds.core.policy.History,
-           rlimits: org.omg.dds.core.policy.ResourceLimits,
-           cleanupDelay: Long, unit: TimeUnit
-          )(implicit pf: PolicyFactory): org.omg.dds.core.policy.DurabilityService =
+            rlimits: org.omg.dds.core.policy.ResourceLimits,
+            cleanupDelay: Long, unit: TimeUnit
+           )(implicit pf: PolicyFactory): org.omg.dds.core.policy.DurabilityService =
     pf.DurabilityService()
       .withHistoryDepth(history.getDepth)
       .withHistoryKind(history.getKind)
@@ -56,25 +56,32 @@ object DurabilityService {
       .withMaxSamplesPerInstance(rlimits.getMaxSamplesPerInstance)
       .withServiceCleanupDelay(cleanupDelay, unit)
 }
+
 object Partition {
   def apply(name: String)(implicit pf: PolicyFactory) = pf.Partition().withName(name)
-  def apply(names: List[String])(implicit pf: PolicyFactory) = pf.Partition().withName(names)
+
+  def apply(names: List[String])(implicit pf: PolicyFactory) = pf.Partition().withName(names.asJava)
 }
 
 object Reliability {
   def BestEffort(implicit pf: PolicyFactory) = pf.Reliability().withBestEffort()
+
   def Reliable(implicit pf: PolicyFactory) = pf.Reliability().withReliable()
 }
 
 object Durability {
   def Volatile(implicit pf: PolicyFactory) = pf.Durability().withVolatile()
+
   def TransientLocal(implicit pf: PolicyFactory) = pf.Durability().withTransientLocal()
+
   def Transient(implicit pf: PolicyFactory) = pf.Durability().withTransient()
+
   def Persistent(implicit pf: PolicyFactory) = pf.Durability().withPersistent()
 }
 
 object History {
   def KeepLast(depth: Int)(implicit pf: PolicyFactory) = pf.History().withKeepLast(depth)
+
   def KeepAll()(implicit pf: PolicyFactory) = pf.History().withKeepAll()
 }
 
@@ -95,7 +102,8 @@ object Deadline {
 }
 
 object Ownership {
-  def Shared(implicit pf: PolicyFactory)  = pf.Ownership().withShared()
+  def Shared(implicit pf: PolicyFactory) = pf.Ownership().withShared()
+
   def Exclusife(implicit pf: PolicyFactory) = pf.Ownership().withExclusive()
 }
 
@@ -114,11 +122,13 @@ object ContentFilter {
       val policy =
         for (
           ctor <- ctors.find(ctr => ctr.getParameterTypes.length == 1 && ctr.getParameterTypes()(0).getCanonicalName == "java.lang.String");
-          f <- { try {
-            Some(ctor.newInstance(script))
-          } catch {
-            case e: RuntimeException => None
-          }}) yield pf.ContentFilter().withFilter(f.asInstanceOf[org.omg.dds.sub.DataReader.Filter[_]])
+          f <- {
+            try {
+              Some(ctor.newInstance(script))
+            } catch {
+              case e: RuntimeException => None
+            }
+          }) yield pf.ContentFilter().withFilter(f.asInstanceOf[org.omg.dds.sub.DataReader.Filter[_]])
 
       policy.getOrElse {
         throw new RuntimeException("Unable to create ContentFilter")

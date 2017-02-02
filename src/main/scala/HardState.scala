@@ -1,7 +1,7 @@
 import dds._
 import org.omg.dds.core.policy.PolicyFactory
 import dds.prelude._
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
 /**
   * This class implements the DDS Hard-State Idiom
@@ -18,6 +18,5 @@ case class HardState[T: Manifest](name: String, durability: org.omg.dds.core.pol
   lazy val topic: org.omg.dds.topic.Topic[T] = Topic[T](name, HardStateTopic(durability, ResourceLimits(1, 1024, 1024*1024)))
   lazy val writer: org.omg.dds.pub.DataWriter[T] = DataWriter[T](topic, HardStateWriterQos(durability, history))
   lazy val reader: org.omg.dds.sub.DataReader[T] = DataReader[T](topic, HardStateReaderQos(durability, history))
-
 
 }

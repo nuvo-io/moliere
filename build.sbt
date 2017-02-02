@@ -2,17 +2,26 @@ val jdkver =  if (System.getProperty("java.version").startsWith("1.7")) "-jdk7" 
 
 name		:= s"moliere$jdkver"
 
-version		:= "0.12.2-SNAPSHOT"
+version		:= "0.12.3-SNAPSHOT"
 
 organization 	:= "io.nuvo"
 
 homepage :=  Some(new java.net.URL("http://nuvo.io"))
 
-scalaVersion 	:= "2.11.8"
+scalaVersion 	:= "2.12.1"
 
-resolvers += "Vortex Snapshot Repo" at "https://dl.dropboxusercontent.com/u/19238968/devel/mvn-repo/vortex"
+val local = true
 
-libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.2.1-SNAPSHOT"
+val localURI = "file:////Users/veda/.m2/repository"
+
+val remoteURI = "https://dl.dropboxusercontent.com/u/19238968/devel/mvn-repo/vortex"
+
+val repoURI = if (local) localURI else remoteURI
+
+resolvers += "Vortex Snapshot Repo" at repoURI
+
+
+libraryDependencies += "com.prismtech.cafe" % "cafe" % "2.3.1-SNAPSHOT"
 
 autoCompilerPlugins := true
 
@@ -20,7 +29,7 @@ scalacOptions += "-deprecation"
 
 scalacOptions += "-unchecked"
 
-scalacOptions += "-optimise"
+// scalacOptions += "-optimise"
 
 scalacOptions += "-feature"
 
