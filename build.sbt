@@ -10,7 +10,7 @@ homepage :=  Some(new java.net.URL("http://nuvo.io"))
 
 scalaVersion 	:= "2.12.1"
 
-val local = true
+val local = false
 
 val localURI = "file:////Users/veda/.m2/repository"
 
